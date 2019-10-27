@@ -11,13 +11,9 @@ if (isset($_COOKIE['convo_mail'])) {
     $email = $_COOKIE['convo_mail'];
     if (isset($_COOKIE['convo_token'])) {
         $token = $_COOKIE['convo_token'];
-//        echo "SELECT * FROM `cookie` WHERE `mail`='$email' AND `token`='$token'";
         $result = sql("SELECT * FROM `cookie` WHERE `mail`='$email' AND `token`='$token'");
         if ($result->num_rows > 0) {
-//            $row = $result->fetch_assoc();
-//            $mail = $row['mail'];
             $row = sql("SELECT * FROM `users` WHERE `email`='$email'")->fetch_assoc();
-//            print_r($row);
             $name = $row['name'];
             $id = $row['id'];
             if (!isset($_SESSION['on'])) {
@@ -26,17 +22,10 @@ if (isset($_COOKIE['convo_mail'])) {
                 setcookie('convo_token', $token, time() + (86400 * 30), "/");
             }
         } else {
-//            $_COOKIE['convo_mail'] = '';
-//            $_COOKIE['convo_token'] = '';
             setcookie('convo_mail', '', time() + (86400 * 30), "/");
             setcookie('convo_token', '', time() + (86400 * 30), "/");
 
         }
-    } else {
-        //if (isset($_COOKIE['not_confirmed']) && $_COOKIE['not_confirmed'] === '1')
-        //    $await_confirm = 1;
-        //else 
-        //setcookie('convo_mail', '', time() + (86400 * 30), "/");
     }
 
     if ($name != '') {
